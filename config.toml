@@ -4,7 +4,20 @@ title = 'Ankita Mathur'
 theme = "ananke"
 enableEmoji = true
 
+SectionPagesMenu = "main"
+Paginate = 3
+
 [params]
 title = "Ankita Mathur"
 author = "Ankita Mathur"
 description = "Data Consultant"
+text_color = ""
+background_color_class = "washed-red"
+
+[[params.ananke_socials]]
+name = "linkedin"
+url = "https://www.linkedin.com/in/ankitamathur10/"
+
+[[params.ananke_socials]]
+name = "twitter"
+url = "https://twitter.com/AnkitaM1094"
