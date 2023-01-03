@@ -10,7 +10,7 @@ on:
 
 jobs:
   build-and-deploy-site:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
@@ -33,7 +33,7 @@ jobs:
           arguments: --only-4xx --check-favicon --check-html 
 --assume-extension --empty-alt-ignore --disable-external
         continue-on-error: true
-
+        
       - name: Deploy to GitHub Pages
         if: github.event_name == 'push' && github.ref == 
 'refs/heads/main'
