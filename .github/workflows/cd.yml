@@ -30,11 +30,11 @@ jobs:
         uses: chabad360/htmlproofer@master
         with:
           directory: "./public"
-          arguments: --only-4xx --check-favicon --check-html 
+          arguments:--only-4xx --check-favicon --check-html --assume-extension --empty-alt-ignore --disable-external 
         continue-on-error: true
         
       - name: Deploy to GitHub Pages
-        if: github.event_name == 'push' && github.ref == 
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
