@@ -1,0 +1,10 @@
+baseURL = 'https://ankitamat.com/'
+languageCode = 'en-us'
+title = 'Ankita Mathur'
+theme = "ananke"
+enableEmoji = true
+
+[params]
+title = "Ankita Mathur"
+author = "Ankita Mathur"
+description = "Data Consultant"
