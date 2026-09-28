@@ -177,6 +177,8 @@ ul {
   text-decoration: none;
   text-transform: none;
   letter-spacing: 0;
+  font-size: 18px;
+  line-height: 24px;
   font-weight: 500;
   color: var(--body);
   white-space: nowrap;
@@ -975,12 +977,25 @@ section > .mono + .sub-label,
     padding-top: 2rem;
   }
   .rows li {
-    grid-template-columns: 3.55rem 1fr auto;
+    grid-template-columns: 3.55rem minmax(0, 1fr);
     row-gap: 0.15rem;
     font-size: var(--t1);
   }
-  .rows .detail {
-    grid-column: 2 / -1;
+  .rows .logo {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    align-self: start;
+  }
+  .rows .name,
+  .rows .detail,
+  .rows .when {
+    grid-column: 2;
+  }
+  .rows .when {
+    text-align: left;
+  }
+  .rows .more {
+    grid-column: 1 / -1;
   }
   .made a {
     grid-template-columns: 1fr;
