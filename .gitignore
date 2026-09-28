@@ -1,0 +1,22 @@
+# build product of tools/build-preview.py
+preview.html
+
+# working notes, not part of the site
+PROGRESS.md
+CONTENT.md
+TYPE.md
+experience-reveals.md
+
+# source material and reference screenshots
+linkedIn.pdf
+AnkitaMathur_Resume_June2026.docx.pdf
+AnkitaMathur_Resume_Sep2026.docx.pdf
+headshot.jpeg
+charmie_hp.png
+sample-123.png
+product_usage.webp
+saved_to_drafts.webp
+Screenshot *.png
+
+.DS_Store
+CNAME.pending

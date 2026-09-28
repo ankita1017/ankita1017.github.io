@@ -1,0 +1,1016 @@
+/* Ankita Mathur - personal site
+   One narrow centered column on white. Helvetica Neue throughout (system font,
+   no download); the site loads no font files at all. */
+
+/* ---- tokens ---------------------------------------------------------- */
+:root {
+  color-scheme: light;
+
+  --bg: #ffffff;
+  --fg: #1d1d1d;
+  --body: #4a4948;
+  --muted: #918e89;
+  --rule: #e6e3de;
+  --surface: #f5f5f5;
+  --accent: #e61428;
+  --btn-bg: #1a1a1a;
+  --link-hover: #4a20ff; /* titles on hover; upgraded to P3 below */
+  --btn-fg: #ffffff;
+
+  --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --display: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  /* type scale (15px base): 12 / 13 / 15 / 17 / 20 / 24 */
+  --t-1: 0.8rem;
+  --t0: 0.8667rem;
+  --t1: 1rem;
+  --t2: 1.1333rem;
+  --t3: 1.3333rem;
+  --t4: 1.6rem;
+
+  --col: 64rem;
+  --gutter: clamp(1.25rem, 4vw, 2.5rem);
+  --section-gap: 4.5rem;
+  --measure: 40rem;
+}
+
+/* the hover blue is outside sRGB; show the real colour where the display can */
+@supports (color: color(display-p3 1 1 1)) {
+  :root {
+    --link-hover: color(display-p3 0.268 0.134 0.992);
+  }
+}
+
+
+/* ---- base ------------------------------------------------------------ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 15px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--body);
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: var(--t1);
+  line-height: 1.5;
+  letter-spacing: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "kern", "liga";
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: var(--body);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  text-decoration-color: var(--rule);
+}
+a:hover,
+a:focus-visible {
+  text-decoration-color: currentColor;
+}
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--sans);
+  margin: 0;
+}
+
+p {
+  margin: 0;
+  max-width: var(--measure);
+}
+p + p {
+  margin-top: 0.9em;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.skip {
+  position: absolute;
+  left: -999px;
+  top: 0.5rem;
+  background: var(--bg);
+  padding: 0.5rem 0.75rem;
+}
+.skip:focus {
+  left: 0.5rem;
+  z-index: 10;
+}
+
+/* ---- page frame -------------------------------------------------------- */
+.page {
+  max-width: calc(var(--col) + 2 * var(--gutter));
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  animation: fade 320ms ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .page {
+    animation: none;
+  }
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* monospace uppercase labels, as in the reference */
+.mono {
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 600;
+  letter-spacing: 0.24px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* header band: wordmark then the site links, all left-aligned, with a
+   hairline that runs the full width of the viewport under it */
+.top {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 7rem;
+  padding: 1.5rem 0;
+  margin-bottom: 0.5rem;
+}
+.top nav {
+  margin-left: auto;
+}
+.top::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 100vw;
+  transform: translateX(-50%);
+  border-bottom: 1px solid var(--rule);
+}
+.top .wordmark {
+  text-decoration: none;
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 500;
+  color: var(--body);
+  white-space: nowrap;
+}
+.top .wordmark .wave {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  font-weight: 400;
+  margin-left: 0.15em;
+}
+.top nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.75rem;
+  align-items: baseline;
+  font-size: 14px;
+  line-height: 19.5px;
+}
+.top nav a {
+  text-decoration: none;
+}
+.top nav a:hover {
+  text-decoration: underline;
+  text-decoration-color: currentColor;
+}
+.top nav a[aria-current="page"] {
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.btn {
+  display: inline-block;
+  background: var(--btn-bg);
+  color: var(--btn-fg) !important;
+  padding: 0.5em 1em;
+  border-radius: 999px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none !important;
+}
+.btn:hover,
+.btn:focus-visible {
+  background: var(--accent);
+  color: #ffffff !important;
+}
+
+.bottom {
+  margin-top: var(--section-gap);
+  padding: 2rem 0 2.5rem;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+.bottom .links {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 1.5rem;
+  row-gap: 0.4rem;
+  font-size: var(--t1);
+}
+.bottom .links a {
+  text-decoration: none;
+}
+.bottom .links a:hover {
+  text-decoration: underline;
+  text-decoration-color: currentColor;
+}
+.bottom .meta {
+  font-size: var(--t-1);
+  color: var(--muted);
+}
+
+/* ---- sections ------------------------------------------------------------- */
+section + section {
+  margin-top: var(--section-gap);
+}
+.hero + section {
+  margin-top: 3.25rem;
+}
+section > .mono {
+  display: block;
+  font-size: 18px;
+  line-height: 18px;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--fg);
+  margin-bottom: 1.5rem;
+}
+.section-intro {
+  margin-bottom: 1.5rem;
+}
+.sub-label {
+  font-size: var(--t0);
+  font-weight: 500;
+  color: var(--fg);
+  margin: 2.25rem 0 1rem;
+}
+section > .mono + .sub-label,
+.section-intro + .sub-label {
+  margin-top: 0;
+}
+.section-intro + .sub-label {
+  margin-top: 0.5rem;
+}
+
+/* hero: photo, then text, all left-aligned as in the reference */
+.hero {
+  padding-top: 2.5rem;
+}
+.hero .avatar {
+  display: block;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 0 1.75rem;
+  box-shadow: 0 0 0 1px var(--rule);
+}
+.hero .byline {
+  font-family: var(--display);
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 600;
+  letter-spacing: -0.22px;
+  color: var(--fg);
+  margin-bottom: 1.5rem;
+}
+.hero h1 {
+  font-family: var(--display);
+  font-size: 30px;
+  line-height: 30px;
+  font-weight: 700;
+  letter-spacing: -0.22px;
+  color: var(--fg);
+  margin-bottom: 0.25rem;
+}
+.hero .intro {
+  color: var(--fg);
+}
+.hero .intro p,
+.hero .byline {
+  max-width: 46rem;
+}
+.hero .intro p {
+  font-size: 15px;
+  line-height: 22px;
+  color: var(--body);
+}
+
+/* rows: name | detail | date, hairline dividers; hover reveals a line more.
+   Capped at the text measure so the year does not drift away from the role.
+   Open on :hover (mouse; touch browsers emulate it on tap) and :focus-visible
+   (keyboard). Plain :focus is deliberately not used, so a mouse click does not
+   leave a row pinned open. */
+.rows {
+  max-width: 52rem;
+}
+.rows li {
+  display: grid;
+  grid-template-columns: 3.55rem minmax(15.5rem, 0.8fr) 1.7fr 5.4rem;
+  column-gap: 0.9rem;
+  align-items: center;
+  padding: 0.9rem 0;
+  outline-offset: -2px;
+}
+.rows li:focus-visible,
+.dot:focus-visible {
+  outline: 2px solid var(--muted);
+  border-bottom: 1px solid var(--rule);
+  font-size: var(--t1);
+  line-height: 1.4;
+}
+.rows li:first-child {
+  border-top: 1px solid var(--rule);
+}
+.rows.edu li {
+  grid-template-columns: 3.55rem minmax(7rem, 1.1fr) 1.6fr 5.6rem;
+}
+.rows .logo {
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 5px;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(1);
+  opacity: 0.75;
+  transition: filter 200ms ease, opacity 200ms ease;
+}
+.rows li:hover .logo,
+.rows li:focus-visible .logo,
+.rows.edu .logo {
+  filter: none;
+  opacity: 1;
+}
+.rows .more {
+  grid-column: 2 / -1;
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 260ms ease;
+}
+.rows .more {
+  color: var(--body);
+}
+.rows .more > span {
+  min-height: 0;
+  overflow: hidden;
+}
+.rows li:hover .more,
+.rows li:focus-visible .more {
+  grid-template-rows: 1fr;
+  margin-top: 0.4rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  .rows .more,
+  .rows .logo,
+  .rows .layer {
+    transition: none;
+  }
+}
+.rows .name {
+  font-weight: 500;
+  color: var(--fg);
+}
+.rows .more {
+  font-size: 15px;
+  line-height: 22px;
+}
+.rows .detail,
+.rows .when {
+  color: var(--muted);
+  font-weight: 400;
+}
+/* layer of the data stack each role sat in: a mono tag under the role,
+   same vocabulary as the Explainer / Blog tags on the writing tiles */
+.rows .layer {
+  display: block;
+  font-family: var(--sans);
+  font-size: 11px;
+  line-height: 16.5px;
+  font-weight: 500;
+  letter-spacing: 0.66px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 0.2rem;
+  transition: color 200ms ease;
+}
+.rows li:hover .layer,
+.rows li:focus-visible .layer {
+  color: var(--fg);
+}
+/* the small grey line that can sit under a section label */
+.section-note {
+  margin: -0.85rem 0 1.5rem;
+  font-size: var(--t1);
+  color: var(--body);
+}
+.rows .when {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  text-align: right;
+}
+
+/* recent work: two tiles */
+.cards {
+  display: grid;
+  gap: 1.25rem;
+}
+.card {
+  display: grid;
+  grid-template-columns: 22rem minmax(0, 1fr);
+  column-gap: 2.5rem;
+  align-items: center;
+  background: var(--surface);
+  border-radius: 10px;
+  padding: 1.5rem;
+  text-align: left;
+  box-shadow: 0 0 0 1px transparent;
+  transition: box-shadow 200ms ease;
+}
+.card:hover {
+  box-shadow: 0 0 0 1px var(--rule);
+}
+.card h3 {
+  font-family: var(--display);
+  font-size: var(--t2);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+  margin-bottom: 0.25rem;
+}
+.card .sub {
+  color: var(--muted);
+  margin-bottom: 0.9rem;
+}
+.card p {
+  max-width: none;
+  font-size: 15px;
+  line-height: 22px;
+}
+
+/* recent work: chat mock (CSS animation, loops) */
+.chat {
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 0.85rem;
+  min-height: 11.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  font-size: var(--t-1);
+  line-height: 1.4;
+}
+.bubble {
+  max-width: 88%;
+  padding: 0.5rem 0.7rem;
+  border-radius: 8px;
+}
+.bubble.q {
+  align-self: flex-end;
+  background: var(--fg);
+  color: #fff;
+  border-bottom-right-radius: 2px;
+}
+.bubble.a {
+  align-self: flex-start;
+  background: var(--surface);
+  border-bottom-left-radius: 2px;
+  opacity: 0;
+  animation: chat-a 9s ease-in-out infinite;
+}
+.bubble.a p,
+.bubble.a ol {
+  max-width: none;
+  margin: 0;
+  font-size: inherit;
+  line-height: inherit;
+}
+.bubble.a ol {
+  padding-left: 1.1rem;
+  margin: 0.25rem 0 0.4rem;
+}
+.bubble.a li + li {
+  margin-top: 0.15rem;
+}
+.cites i {
+  display: inline-block;
+  font-style: normal;
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.1rem 0.45rem;
+  margin-right: 0.3rem;
+}
+.typed {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  vertical-align: bottom;
+  max-width: 100%;
+  animation: chat-q 9s steps(40, end) infinite;
+}
+@keyframes chat-q {
+  0% { width: 0; }
+  22% { width: 100%; }
+  100% { width: 100%; }
+}
+@keyframes chat-a {
+  0%, 30% { opacity: 0; transform: translateY(4px); }
+  36%, 94% { opacity: 1; transform: none; }
+  100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .typed,
+  .bubble.a {
+    animation: none;
+    opacity: 1;
+    width: auto;
+  }
+}
+.tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.6rem;
+  margin-bottom: 1rem;
+}
+.card .stat {
+  font-size: var(--t0);
+  color: var(--muted);
+  margin: 0;
+  padding: 0.85rem 0 0;
+  border-top: 1px solid var(--rule);
+}
+.card .stat b {
+  display: block;
+  font-family: var(--display);
+  font-size: var(--t4);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  color: var(--fg);
+}
+.tools li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.3rem 0.75rem 0.3rem 0.35rem;
+  font-size: var(--t-1);
+  color: var(--body);
+}
+.tools img {
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* data art: 2x2 grid of pieces */
+.art {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.75rem 1.5rem;
+  margin-top: 2.75rem;
+}
+@media (max-width: 900px) {
+  .art {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.art a {
+  display: block;
+  text-decoration: none;
+}
+/* the portrait has no wrapping link (the hotspots live inside it), so its
+   title carries the link instead */
+.art .title a {
+  color: inherit;
+  text-decoration: none;
+}
+.art .title a:hover,
+.art .title a:focus-visible {
+  color: var(--link-hover);
+  text-decoration: underline;
+  text-decoration-color: currentColor;
+  text-underline-offset: 0.2em;
+}
+.art img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 740 / 555;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--rule);
+  transition: transform 300ms ease;
+}
+.art a:hover img,
+.art a:focus-visible img {
+  transform: scale(1.02);
+}
+.art .title {
+  display: block;
+  font-size: var(--t1);
+  font-weight: 500;
+  color: var(--body);
+  margin-bottom: 0.5rem;
+}
+.art .title,
+.art .title a {
+  transition: color 160ms ease;
+}
+.art a:hover .title {
+  color: var(--link-hover);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.art .why {
+  display: block;
+  font-size: var(--t0);
+  color: var(--muted);
+  margin-top: 0.6rem;
+}
+
+/* selected writing: thumbnail left, text right, as in the reference */
+.made {
+  display: grid;
+  row-gap: 1.75rem;
+}
+.made a {
+  display: grid;
+  grid-template-columns: 9rem minmax(0, 1fr);
+  column-gap: 1.5rem;
+  align-items: center;
+  text-decoration: none;
+}
+.made img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 740 / 460;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--rule);
+  transition: transform 300ms ease;
+}
+.made a:hover img,
+.made a:focus-visible img {
+  transform: scale(1.02);
+}
+.made .title {
+  display: block;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+}
+.made .title {
+  transition: color 160ms ease;
+}
+.made a:hover .title,
+.made a:focus-visible .title {
+  color: var(--link-hover);
+  text-decoration: underline;
+  text-decoration-color: currentColor;
+  text-underline-offset: 0.2em;
+}
+.made .why {
+  display: block;
+  color: var(--muted);
+  font-size: var(--t1);
+  margin-top: 0.25rem;
+}
+
+/* a year in data: portrait with hover dots */
+.portrait {
+  position: relative;
+  border-radius: 10px;
+  overflow: visible;
+}
+.portrait > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 740 / 555;
+  object-fit: cover;
+  object-position: 44% center;
+  border-radius: 6px;
+  border: 1px solid var(--rule);
+}
+.dots {
+  position: absolute;
+  inset: 0;
+}
+.dot {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: 0.75rem;
+  height: 0.75rem;
+  margin: -0.375rem 0 0 -0.375rem;
+  border-radius: 50%;
+  background: rgba(124, 108, 214, 0.85);
+  box-shadow: 0 0 0 2px rgba(124, 108, 214, 0.22);
+  transition: transform 160ms ease;
+}
+.dot:hover,
+.dot:focus {
+  transform: scale(1.25);
+  z-index: 2;
+}
+.dot .tip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.5rem);
+  transform: translateX(-50%) translateY(4px);
+  width: 8.5rem;
+  background: var(--fg);
+  color: #fff;
+  font-size: var(--t-1);
+  line-height: 1.35;
+  letter-spacing: 0;
+  padding: 0.3rem;
+  border-radius: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+.dot .tip img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: 5px;
+}
+.dot .tip .cap {
+  display: block;
+  padding: 0.4rem 0.35rem 0.25rem;
+}
+.dot .tip b {
+  font-weight: 600;
+  margin-right: 0.35em;
+}
+/* dots near the top edge open downward */
+.dot.below .tip {
+  bottom: auto;
+  top: calc(100% + 0.6rem);
+  transform: translateX(-50%) translateY(-4px);
+}
+.dot.below .tip::after {
+  top: auto;
+  bottom: 100%;
+  border-top-color: transparent;
+  border-bottom-color: var(--fg);
+}
+.dot .tip::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  margin-left: -5px;
+  border: 5px solid transparent;
+  border-top-color: var(--fg);
+}
+/* dots near the left or right edge open inwards, so the tooltip never runs
+   past the image (and, on a phone, past the page) */
+.dot.edge-r .tip {
+  left: auto;
+  right: -0.5rem;
+  transform: translateY(4px);
+}
+.dot.edge-l .tip {
+  left: -0.5rem;
+  right: auto;
+  transform: translateY(4px);
+}
+.dot.edge-r .tip::after {
+  left: auto;
+  right: 0.5rem;
+  margin-left: 0;
+}
+.dot.edge-l .tip::after {
+  left: 0.5rem;
+  margin-left: 0;
+}
+.dot.edge-r:hover .tip,
+.dot.edge-r:focus .tip,
+.dot.edge-l:hover .tip,
+.dot.edge-l:focus .tip {
+  transform: translateY(0);
+}
+.dot:hover .tip,
+.dot:focus .tip,
+.dot.below:hover .tip,
+.dot.below:focus .tip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.section-more {
+  margin-top: 1.5rem;
+}
+.section-more a {
+  text-decoration: none;
+  color: var(--fg);
+}
+.section-more .arrow {
+  margin-left: 0.3em;
+  display: inline-block;
+  transition: transform 160ms ease;
+}
+.section-more a:hover .arrow,
+.section-more a:focus-visible .arrow {
+  transform: translateX(3px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .section-more .arrow {
+    transition: none;
+  }
+}
+.section-more a:hover {
+  text-decoration: underline;
+  text-decoration-color: currentColor;
+}
+@media (prefers-reduced-motion: reduce) {
+  .dot,
+  .dot .tip,
+  .made img,
+  .made .title,
+  .art .title,
+  .reads a,
+  .card {
+    transition: none;
+  }
+}
+
+/* favourite things on the internet: a plain list, title then source */
+.reads {
+  max-width: 52rem;
+  list-style: disc outside;
+  padding-left: 1.1rem;
+}
+.reads li {
+  display: list-item;
+  margin-bottom: 0.6rem;
+  color: var(--muted);
+}
+.reads li::marker {
+  color: var(--muted);
+}
+.reads a {
+  text-decoration: none;
+  color: var(--fg);
+}
+.reads a {
+  transition: color 160ms ease;
+}
+.reads a:hover,
+.reads a:focus-visible {
+  color: var(--link-hover);
+  text-decoration: underline;
+  text-decoration-color: currentColor;
+  text-underline-offset: 0.2em;
+}
+.reads .src {
+  font-size: var(--t0);
+  color: var(--muted);
+  margin-left: 0.6rem;
+}
+
+/* ---- writing page ----------------------------------------------------------- */
+.prose {
+  padding-top: 3.5rem;
+}
+.prose h1 {
+  font-family: var(--display);
+  font-size: var(--t4);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--fg);
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+.prose .lede {
+  color: var(--muted);
+  margin-bottom: var(--section-gap);
+}
+.posts li {
+  grid-template-columns: 1fr auto;
+}
+.posts a {
+  text-decoration: none;
+  font-weight: 500;
+  color: var(--fg);
+}
+.posts a:hover,
+.posts a:focus-visible {
+  text-decoration: underline;
+  text-decoration-color: currentColor;
+}
+.posts .src {
+  font-size: var(--t0);
+  color: var(--muted);
+  white-space: nowrap;
+}
+.posts .note {
+  grid-column: 1 / -1;
+  font-size: var(--t1);
+  color: var(--muted);
+  margin-top: 0.15rem;
+}
+
+/* ---- responsive ------------------------------------------------------------- */
+@media (max-width: 720px) {
+  :root {
+    --section-gap: 3.5rem;
+  }
+  .top {
+    flex-wrap: wrap;
+    gap: 0.75rem 2rem;
+  }
+  .top nav {
+    margin-left: 0;
+  }
+  .top nav ul {
+    gap: 0.5rem 1.25rem;
+  }
+  .hero {
+    padding-top: 2rem;
+  }
+  .rows li {
+    grid-template-columns: 3.55rem 1fr auto;
+    row-gap: 0.15rem;
+    font-size: var(--t1);
+  }
+  .rows .detail {
+    grid-column: 2 / -1;
+  }
+  .made a {
+    grid-template-columns: 1fr;
+    row-gap: 0.75rem;
+  }
+  .card,
+  .art {
+    grid-template-columns: 1fr;
+  }
+  .card {
+    row-gap: 1rem;
+  }
+  .hero .avatar {
+    width: 8rem;
+    height: 8rem;
+  }
+  .posts li {
+    grid-template-columns: 1fr;
+  }
+}
+
+.prose h2.mono {
+  display: block;
+  font-size: 18px;
+  line-height: 18px;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--fg);
+  margin: var(--section-gap) 0 1.5rem;
+}
+.prose .lede + h2.mono {
+  margin-top: 0;
+}
