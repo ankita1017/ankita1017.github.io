@@ -882,26 +882,6 @@ section > .mono + .sub-label,
   }
 }
 
-/* principles: short lines, read one at a time rather than scanned */
-.principles {
-  display: grid;
-  row-gap: 1.1rem;
-  max-width: 44rem;
-}
-.principles li {
-  font-size: 18px;
-  line-height: 27px;
-  color: var(--fg);
-  padding-left: 1rem;
-  border-left: 2px solid var(--rule);
-}
-.principles .who {
-  display: block;
-  font-size: var(--t0);
-  color: var(--muted);
-  margin-top: 0.3rem;
-}
-
 /* favourite things on the internet: a plain list, title then source */
 .reads {
   max-width: 52rem;
