@@ -12,6 +12,7 @@
   --muted: #918e89;
   --rule: #e6e3de;
   --surface: #f5f5f5;
+  --tip-bg: #eae8e3;
   --accent: #e61428;
   --btn-bg: #1a1a1a;
   --link-hover: #4a20ff; /* titles on hover; upgraded to P3 below */
@@ -608,7 +609,6 @@ section > .mono + .sub-label,
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.75rem 1.5rem;
-  margin-top: 2.75rem;
 }
 @media (max-width: 900px) {
   .art {
@@ -725,6 +725,14 @@ section > .mono + .sub-label,
   position: relative;
   border-radius: 10px;
   overflow: visible;
+  transition: transform 300ms ease;
+}
+/* the portrait is not wrapped in a link (the hotspots live inside it), so it
+   needs its own hover zoom; scaling the whole block keeps the dots on their
+   labels, which scaling the image alone would not */
+.piece-portrait:hover .portrait,
+.piece-portrait:focus-within .portrait {
+  transform: scale(1.02);
 }
 .portrait > img {
   display: block;
@@ -763,13 +771,14 @@ section > .mono + .sub-label,
   bottom: calc(100% + 0.5rem);
   transform: translateX(-50%) translateY(4px);
   width: 8.5rem;
-  background: var(--fg);
-  color: #fff;
+  background: var(--tip-bg);
+  color: var(--fg);
   font-size: var(--t-1);
   line-height: 1.35;
   letter-spacing: 0;
-  padding: 0.3rem;
-  border-radius: 8px;
+  padding: 0.35rem 0.35rem 0.1rem;
+  border-radius: 3px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.22);
   opacity: 0;
   pointer-events: none;
   transition: opacity 160ms ease, transform 160ms ease;
@@ -780,11 +789,11 @@ section > .mono + .sub-label,
   height: auto;
   aspect-ratio: 3 / 2;
   object-fit: cover;
-  border-radius: 5px;
+  border-radius: 1px;
 }
 .dot .tip .cap {
   display: block;
-  padding: 0.4rem 0.35rem 0.25rem;
+  padding: 0.45rem 0.1rem 0.5rem;
 }
 .dot .tip b {
   font-weight: 600;
@@ -800,7 +809,7 @@ section > .mono + .sub-label,
   top: auto;
   bottom: 100%;
   border-top-color: transparent;
-  border-bottom-color: var(--fg);
+  border-bottom-color: var(--tip-bg);
 }
 .dot .tip::after {
   content: "";
@@ -809,7 +818,7 @@ section > .mono + .sub-label,
   top: 100%;
   margin-left: -5px;
   border: 5px solid transparent;
-  border-top-color: var(--fg);
+  border-top-color: var(--tip-bg);
 }
 /* dots near the left or right edge open inwards, so the tooltip never runs
    past the image (and, on a phone, past the page) */
@@ -871,6 +880,7 @@ section > .mono + .sub-label,
   text-decoration-color: currentColor;
 }
 @media (prefers-reduced-motion: reduce) {
+  .portrait,
   .dot,
   .dot .tip,
   .made img,
@@ -880,6 +890,28 @@ section > .mono + .sub-label,
   .card {
     transition: none;
   }
+}
+
+/* guiding principles: a plain bulleted list, quieter than body text */
+.principles {
+  max-width: 44rem;
+  list-style: disc outside;
+  padding-left: 1.1rem;
+}
+.principles li {
+  display: list-item;
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--body);
+  margin-bottom: 0.55rem;
+}
+.principles li::marker {
+  color: var(--muted);
+}
+.principles .who {
+  margin-left: 0.4rem;
+  color: var(--muted);
+  white-space: nowrap;
 }
 
 /* favourite things on the internet: a plain list, title then source */
