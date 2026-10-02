@@ -948,6 +948,88 @@ section > .mono + .sub-label,
   margin-left: 0.6rem;
 }
 
+/* ---- dark theme ------------------------------------------------------- */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #161513;
+  --fg: #edebe6;
+  --body: #b9b6ae;
+  --muted: #8b8880;
+  --rule: #33322e;
+  --surface: #1f1e1c;
+  --btn-bg: #edebe6;
+  --btn-fg: #161513;
+}
+/* company marks are coloured artwork on white; each needs its own light chip
+   so it reads as a logo rather than a hole punched in the page */
+:root[data-theme="dark"] .rows .logo {
+  background: #efede8;
+  padding: 2px;
+}
+:root[data-theme="dark"] .made img,
+:root[data-theme="dark"] .art img,
+:root[data-theme="dark"] .portrait > img {
+  border-color: #3a3833;
+}
+:root[data-theme="dark"] .chat,
+:root[data-theme="dark"] .tools li {
+  background: #1b1a18;
+  border-color: #3a3833;
+}
+:root[data-theme="dark"] .bubble.q {
+  background: #edebe6;
+  color: #161513;
+}
+:root[data-theme="dark"] .bubble.a {
+  background: #262522;
+}
+:root[data-theme="dark"] .cites i {
+  border-color: #3a3833;
+}
+
+/* ---- theme toggle ----------------------------------------------------- */
+.hero-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.35rem;
+  padding: 0.4rem 0.75rem;
+  font: inherit;
+  font-size: var(--t0);
+  color: var(--body);
+  background: none;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color 160ms ease, color 160ms ease;
+}
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  border-color: var(--muted);
+  color: var(--fg);
+}
+.theme-toggle .icon {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: var(--body);
+  box-shadow: inset -0.22rem -0.22rem 0 0 var(--bg);
+}
+:root[data-theme="dark"] .theme-toggle .icon {
+  box-shadow: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle {
+    transition: none;
+  }
+}
+
 /* ---- writing page ----------------------------------------------------------- */
 .prose {
   padding-top: 3.5rem;
